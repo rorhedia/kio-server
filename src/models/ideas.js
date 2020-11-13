@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose   = require("mongoose");
 const { Schema } = mongoose;
 
 const statusList = {
   values: ["Aprobado", "Rechazado", "Pendiente"],
-  message: "Elige un rol válido",
+  message: "Elige un estado válido",
 };
 
 const ideasSchema = new Schema({
