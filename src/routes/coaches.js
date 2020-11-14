@@ -1,0 +1,33 @@
+const express = require("express");
+const router = express.Router();
+
+const { createCoach } = require("../usecases/coaches");
+
+// Middlewares
+const { formValidation } = require("../middlewares/coaches");
+
+// Routes
+router.post("/", formValidation, async (req, resp) => {
+  try {
+    const coach = req.body;
+    const response = await createCoach(coach);
+
+    resp.status(201).json({
+      status: "success",
+      response: {
+        id: response.id,
+      },
+    });
+  } catch (error) {
+    resp.status(400).json({
+      status: "error",
+      response: {
+        name: "ClientError",
+        message: error.message,
+        path: "",
+      },
+    });
+  }
+});
+
+module.exports = router;
