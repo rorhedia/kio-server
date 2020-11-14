@@ -10,16 +10,22 @@ const { authValidation } = require("../middlewares/users");
 router.post("/", authValidation, async (req, resp) => {
   try {
     const user = req.body;
-    let result = await auth(user);
+    let response = await auth(user);
 
-    resp.json({
+    resp.status(201).json({
       status: "success",
-      data: result,
+      response: {
+        id: response.id,
+      },
     });
   } catch (error) {
-    resp.json({
+    resp.status(400).json({
       status: "error",
-      err: error.message,
+      response: {
+        name: "ClientError",
+        message: error.message,
+        path: "",
+      },
     });
   }
 });

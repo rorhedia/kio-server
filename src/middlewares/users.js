@@ -25,7 +25,7 @@ function authValidation(req, res, next) {
   } catch (error) {
     res.status(400).json({
       status: "error",
-      data: {
+      response: {
         name: error.name,
         message: error.message,
         path: error.path,
