@@ -8,8 +8,15 @@ const coachesSchema = new Schema({
     type: String,
     trim: true,
     required: "El nombre es obligatorio",
-    maxlength: 100,
-    minlength: 5,
+    maxlength: 60,
+    minlength: 3,
+  },
+  lastname: {
+    type: String,
+    trim: true,
+    required: "El apellido es obligatorio",
+    maxlength: 60,
+    minlength: 3,
   },
   email: {
     type: String,

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router  = express.Router();
 
 const { createCoach } = require("../usecases/coaches");
 
@@ -9,7 +9,7 @@ const { formValidation } = require("../middlewares/coaches");
 // Routes
 router.post("/", formValidation, async (req, resp) => {
   try {
-    const coach = req.body;
+    const coach    = req.body;
     const response = await createCoach(coach);
 
     resp.status(201).json({
