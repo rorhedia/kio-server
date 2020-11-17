@@ -15,7 +15,7 @@ router.post("/", authValidation, async (req, resp) => {
     resp.status(201).json({
       status: "success",
       response: {
-        id: response.id,
+        id: response,
       },
     });
   } catch (error) {

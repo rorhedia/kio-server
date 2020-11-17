@@ -1,4 +1,5 @@
 const yup = require("yup");
+const jwt = require("../lib/jwt");
 
 function formValidation(req, res, next) {
   try {
@@ -10,10 +11,8 @@ function formValidation(req, res, next) {
           .min(3, "El nombre debe contener almenos 3 letras")
           .max(60)
           .required("Debe agregar el nombre de la idea"),
-        description: yup
-          .string("No se aceptan caracteres extraños"),
-        effect: yup
-          .string("No se aceptan caracteres extraños"),
+        description: yup.string("No se aceptan caracteres extraños"),
+        effect: yup.string("No se aceptan caracteres extraños"),
         image: yup.string("No se aceptan caracteres extraños"),
         file: yup.string("No se aceptan caracteres extraños"),
       })
@@ -32,4 +31,22 @@ function formValidation(req, res, next) {
   }
 }
 
-module.exports = { formValidation };
+function auth(req, res, next) {
+  try {
+    const { authorization } = req.headers;
+    const decodedToken = jwt.verify(authorization);
+
+    next();
+  } catch (error) {
+    res.status(401).json({
+      status: "error",
+      response: {
+        name: error.name,
+        message: error.message,
+        path: error.path,
+      },
+    });
+  }
+}
+
+module.exports = { formValidation, auth };
