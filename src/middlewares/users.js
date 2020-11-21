@@ -1,4 +1,46 @@
 const yup = require("yup");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
+const User = require("../models/users");
+const { auth } = require("../usecases/users");
+
+const { GG_CLIENT_ID, GG_CLIENT_SECRET } = process.env;
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById({ _id: id }).then((user) => {
+    done(null, user);
+  });
+});
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GG_CLIENT_ID,
+      clientSecret: GG_CLIENT_SECRET,
+      callbackURL: "/auth/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const { id, provider, _raw, _json } = profile;
+
+      const user = {
+        name: _json.name,
+        email: _json.email,
+        picture: _json.picture,
+        googleId: id,
+        provider: provider,
+      };
+
+      const result = await auth(user);
+
+      return done(null, result);
+    }
+  )
+);
 
 function authValidation(req, res, next) {
   try {

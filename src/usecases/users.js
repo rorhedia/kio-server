@@ -11,9 +11,11 @@ const auth = async (user) => {
   }
 
   let jsonwebtoken = jwt.sign({ id: result._id });
+  let id = result._id;
 
   return {
     ...user,
+    id,
     jsonwebtoken,
   };
 };

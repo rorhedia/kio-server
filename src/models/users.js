@@ -1,4 +1,4 @@
-const mongoose   = require("mongoose");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -24,10 +24,27 @@ const usersSchema = new Schema({
     uniqueCaseInsensitive: true,
     match: [emailValidation, "Por favor ingresa un correo válido"],
   },
+  picture: {
+    type: String,
+    trim: true,
+    default: "",
+  },
+  googleId: {
+    type: String,
+    trim: true,
+    unique: true,
+    uniqueCaseInsensitive: true,
+    default: "",
+  },
+  provider: {
+    type: String,
+    trim: true,
+    default: "",
+  },
   role: {
     type: String,
     enum: userRole,
-    default: 'user',
+    default: "user",
   },
   created: {
     type: Date,
