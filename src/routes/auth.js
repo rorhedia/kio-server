@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 var passport = require("passport");
 
+const { URLBASE_CLIENT } = process.env;
+
 router.get(
   "/login",
   passport.authenticate("google", {
@@ -12,17 +14,11 @@ router.get(
 router.get(
   "/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
-  (req, resp) => {
-    // resp.redirect("http://localhost:4000/");
+  (req, res) => {
     try {
-      resp.status(201).json({
-        status: "success",
-        response: {
-          user: req.user,
-        },
-      });
+      res.redirect(`${URLBASE_CLIENT}/ideas`);
     } catch (error) {
-      resp.status(400).json({
+      res.status(400).json({
         status: "error",
         response: {
           name: "ClientError",
@@ -36,7 +32,7 @@ router.get(
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.send(req.user);
+  res.redirect(URLBASE_CLIENT);
 });
 
 module.exports = router;

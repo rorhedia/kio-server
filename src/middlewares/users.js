@@ -5,7 +5,7 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const User = require("../models/users");
 const { auth } = require("../usecases/users");
 
-const { GG_CLIENT_ID, GG_CLIENT_SECRET } = process.env;
+const { GG_CLIENT_ID, GG_CLIENT_SECRET, CALLBACK_URL } = process.env;
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: GG_CLIENT_ID,
       clientSecret: GG_CLIENT_SECRET,
-      callbackURL: "https://htj-kio.herokuapp.com/auth/callback",
+      callbackURL: CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       const { id, provider, _raw, _json } = profile;

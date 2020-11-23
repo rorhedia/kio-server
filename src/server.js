@@ -14,16 +14,16 @@ const { COOKIE_KEY } = process.env;
 app.use(cors());
 app.use(express.json());
 
-// app.use(
-//   cookieSession({
-//     // milliseconds of a day
-//     maxAge: 24 * 60 * 60 * 1000,
-//     keys: [COOKIE_KEY],
-//   })
-// );
+app.use(
+  cookieSession({
+    // milliseconds of a day
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [COOKIE_KEY],
+  })
+);
 
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
 // Routes
 app.use("/users", userRouter);
