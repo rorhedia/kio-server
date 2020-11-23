@@ -1,11 +1,13 @@
 require("dotenv").config();
 
 const dbConnect = require("./src/lib/db");
-const server    = require("./src/server");
+const server = require("./src/server");
+
+const port = process.env.PORT || 3000;
 
 dbConnect()
   .then(() => {
-    server.listen(process.env.SERVER_PORT);
+    server.listen(port);
     console.log("DB Connect - Server is listening");
   })
   .catch((err) => {
