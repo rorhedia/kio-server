@@ -9,13 +9,19 @@ function formValidation(req, res, next) {
           .string("Solo se aceptan letras en el nombre")
           .min(3, "Mínimo 3 caracteres")
           .max(60)
-          .matches(/^[a-zA-Z]+$/, "Solo se aceptan letras en el nombre")
+          .matches(
+            /^[a-zA-ZáéíóúÁÉÍÓ]+$/,
+            "Solo se aceptan letras en el nombre"
+          )
           .required("El nombre es obligatorio"),
         lastname: yup
           .string("Solo se aceptan letras en el nombre")
           .min(3, "Mínimo 3 caracteres")
           .max(60)
-          .matches(/^[a-zA-Z]+$/, "Solo se aceptan letras en el apellido")
+          .matches(
+            /^[a-zA-ZáéíóúÁÉÍÓ]+$/,
+            "Solo se aceptan letras en el apellido"
+          )
           .required("El apellido es obligatorio"),
         email: yup
           .string("Formato de correo inválido")

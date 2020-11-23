@@ -20,6 +20,9 @@ const auth = async (user) => {
   };
 };
 
+const getAllUsers = async () => User.find().exec();
+
 module.exports = {
   auth,
+  getAllUsers,
 };

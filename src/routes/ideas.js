@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { createIdea, getAllIdeas, getIdeasById } = require("../usecases/ideas");
+const { createIdea, getAllIdeas, getIdeasByUser } = require("../usecases/ideas");
 
 // Middlewares
 const { formValidation, auth } = require("../middlewares/ideas");
@@ -55,12 +55,12 @@ router.get("/", auth, async (req, resp) => {
 router.get("/:id", auth, async (req, resp) => {
   try {
     const { id } = req.params;
-    const response = await getIdeasById(id);
+    const response = await getIdeasByUser(id);
 
     resp.json({
       status: "success",
       response: {
-        id: response,
+        data: response,
       },
     });
   } catch (error) {
