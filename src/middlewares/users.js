@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: GG_CLIENT_ID,
       clientSecret: GG_CLIENT_SECRET,
-      callbackURL: "/auth/callback",
+      callbackURL: "https://htj-kio.herokuapp.com/auth/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       const { id, provider, _raw, _json } = profile;
