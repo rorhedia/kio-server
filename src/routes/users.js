@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { auth, getAllUsers } = require("../usecases/users");
+const { getAllUsers } = require("../usecases/users");
 
 // Middlewares
-// const { authValidation } = require("../middlewares/users");
+const { auth } = require("../middlewares/auth");
+
+router.use(auth);
 
 // Routes
 // router.post("/", authValidation, async (req, resp) => {

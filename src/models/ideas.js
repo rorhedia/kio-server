@@ -1,4 +1,4 @@
-const mongoose   = require("mongoose");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const statusList = {
@@ -46,6 +46,10 @@ const ideasSchema = new Schema({
     type: String,
     enum: statusList,
     default: "Pendiente",
+  },
+  active: {
+    type: Boolean,
+    default: true,
   },
   created: {
     type: Date,

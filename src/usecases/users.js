@@ -10,19 +10,22 @@ const auth = async (user) => {
     result = await User.create(user);
   }
 
-  // let jsonwebtoken = jwt.sign({ id: result._id });
+  let jsonwebtoken = jwt.sign({ id: result._id });
   let id = result._id;
 
   return {
     ...user,
     id,
-    // jsonwebtoken,
+    jsonwebtoken,
   };
 };
 
-const getAllUsers = async () => User.find().exec();
+const getUserById = async (id) => await User.findById({ _id: id }).exec();
+
+const getAllUsers = async () => await User.find().exec();
 
 module.exports = {
   auth,
+  getUserById,
   getAllUsers,
 };

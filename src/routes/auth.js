@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-var passport = require("passport");
-
+const passport = require("passport");
+const { authValidation } = require("../middlewares/users");
 const { URLBASE_CLIENT } = process.env;
 
 router.get(
@@ -16,6 +16,8 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     try {
+      req.session.user = req.session._ctx.user;
+
       res.redirect(`${URLBASE_CLIENT}/ideas`);
     } catch (error) {
       res.status(400).json({
@@ -31,6 +33,7 @@ router.get(
 );
 
 router.get("/logout", (req, res) => {
+  req.session = null;
   req.logout();
   res.redirect(URLBASE_CLIENT);
 });

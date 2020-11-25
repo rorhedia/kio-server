@@ -5,6 +5,9 @@ const { createCoach, getCoaches } = require("../usecases/coaches");
 
 // Middlewares
 const { formValidation } = require("../middlewares/coaches");
+const { auth } = require("../middlewares/auth");
+
+router.use(auth);
 
 // Routes
 router.post("/", formValidation, async (req, resp) => {
@@ -32,7 +35,6 @@ router.post("/", formValidation, async (req, resp) => {
 
 router.get("/", async (req, resp) => {
   try {
-    // const coach    = req.body;
     const coaches = await getCoaches();
 
     resp.status(201).json({

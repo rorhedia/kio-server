@@ -2,8 +2,7 @@ const yup = require("yup");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
-const User = require("../models/users");
-const { auth } = require("../usecases/users");
+const { auth, getUserById } = require("../usecases/users");
 
 const { GG_CLIENT_ID, GG_CLIENT_SECRET, CALLBACK_URL } = process.env;
 
@@ -11,10 +10,9 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById({ _id: id }).then((user) => {
-    done(null, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  const user = await getUserById(id);
+  done(null, user);
 });
 
 passport.use(
