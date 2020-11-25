@@ -20,6 +20,7 @@ router.get(
 
       res.redirect(`${URLBASE_CLIENT}/ideas`);
     } catch (error) {
+      console.log(error);
       res.status(400).json({
         status: "error",
         response: {
